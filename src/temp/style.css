@@ -1,0 +1,76 @@
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.icon-transfer {
+  width: 0.998046875em;
+}
+
+.icon-lupa {
+  width: 0.9189453125em;
+}
+
+.icon-chaypara {
+  width: 1.1337890625em;
+}
+
+.icon-divan {
+  width: 2.009765625em;
+}
+
+.icon-dom {
+  width: 1.08984375em;
+}
+
+.icon-kaktus-3 {
+  width: 0.9609375em;
+}
+
+.icon-karamel {
+  width: 0.669921875em;
+}
+
+.icon-krovat {
+  width: 1.11328125em;
+}
+
+.icon-rabstol {
+  width: 1.0205078125em;
+}
+
+.icon-shkafmal {
+  width: 0.86328125em;
+}
+
+.icon-stul {
+  width: 0.7861328125em;
+}
+
+.icon-telega {
+  width: 0.9951171875em;
+}
+
+.icon-rouble {
+  width: 0.7138671875em;
+}
+
+.icon-long-arrow-right {
+  width: 0.9638671875em;
+}
+
+.icon-long-arrow-left {
+  width: 1.0361328125em;
+}
