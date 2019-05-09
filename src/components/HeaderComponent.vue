@@ -2,7 +2,9 @@
 
 header#header
     div( class='container block' )
-        img( class='logo' src='~@/assets/img/logo.png' )
+        router-link( class='logo' to='/' tag='div' )
+            img( class='logo' src='~@/assets/img/logo.png' )
+            
         span( class='header-text' ) Больше выбора | 
             span( class='bold' ) Только выгода
 
@@ -12,13 +14,15 @@ header#header
                 i( class='icon icon-cart' )
 
     HeaderNav
+    SiteNav
 </template>
 
 <script>
-import HeaderNav from '@/components/HeaderNav.vue'
+import HeaderNav from '@/components/Header/HeaderNav.vue'
+import SiteNav from '@/components/Header/SiteNav.vue'
 
 export default {
-    components: { HeaderNav }
+    components: { HeaderNav, SiteNav }
 }
 </script>
 

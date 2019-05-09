@@ -1,17 +1,22 @@
 <template lang="pug">
 
-#item
-    p( class='oops' ) Упс...
-    h1( class='title' ) 404
-    p( class='description' ) Кажется, такого товара не существует
+div#item( class='block' )
+    ItemSlider( :item='item' )
+    ItemInfo( :item='item' )
 
 </template>
 
 <script>
+import ItemSlider from '@/components/Item/ItemSlider.vue'
+import ItemInfo from '@/components/Item/ItemInfo.vue'
+
 export default {
-    props: [ 'item' ],
-    mounted: function () {
-        console.log(this);
+    components: { ItemSlider, ItemInfo },
+    props: [ 'id' ],
+    data: function () {
+        return {
+            item: this.$store.getters.catalog[ this.id ]
+        };
     }
 }
 </script>
@@ -19,18 +24,8 @@ export default {
 <style lang="stylus">
 
 #item
+    align-items flex-start
+    display flex
+    justify-content space-between
     padding 64px 0
-    text-align center
-
-    .oops
-        color #777
-        font-size 32px
-
-    .title
-        color #999
-        font-size 300px
-        line-height 300px
-
-    .description
-        font-size 28px
 </style>

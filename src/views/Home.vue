@@ -17,33 +17,12 @@ import ItemComponent from '@/components/ItemComponent.vue'
 export default {
     components: { ItemComponent },
     data: function () {
+        console.log(this.$store.getters.discounts)
         return {
-            discounts: items(12)
+            discounts: this.$store.getters.discounts
         };
     }
 
-}
-
-function items (count) {
-    var id = 101;
-    var result = [];
-    var item = {
-        name: 'Мария; 1600x2000 мм',
-        discount: 20,
-        poster: 'link/to/poster.jpg',
-        prices: {
-            current: '4000.-',
-            old: '4800.-'
-        }
-    };
-
-    for(let i = 0; i != count; ++i)
-        result.push(Object.assign(
-            JSON.parse( JSON.stringify(item) ),
-            { id: parseInt(++id) }
-        ));
-
-    return result;
 }
 </script>
 
