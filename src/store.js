@@ -7,29 +7,47 @@ export default new Vuex.Store({
     getters: { catalog, discounts },
     mutations: {
         reset,
-        'catalog-filter': catalogFilter
+        'toggle-filter': toggleFilter,
+        'catalog-filter': catalogFilter,
+        'add-item': addItem,
+        'remove-item': removeItem,
+        'add-count': addCount,
+        'set-build': setBuild
     },
 
     state: {
-        filter: filter(),
-        cart: cart()
+        small: false,
+        filter: {},
+        cart: []
     }
 });
 
 function reset(state, the) {
-    state[the] = the === 'cart' ? [] : {};
+    state[the] =  the === 'cart' ? [] : {};
+}
+
+function toggleFilter (state) {
+    state.small = !state.small;
 }
 
 function catalogFilter (state, set) {
-    return state.filter[set.key] = set.value;
+    state.filter[ set.key ] = set;
 }
 
-function filter () {
-    return {};
+function addItem (state, item) {
+    state.cart.push(item);
 }
 
-function cart () {
-    return [];
+function removeItem (state, index) {
+    state.cart.splice(index, 1);
+}
+
+function addCount (state, set) {
+    state.cart[ set.index ].count = Math.max(1, state.cart[ set.index ].count + set.count);
+}
+
+function setBuild (state, set) {
+    state.cart[ set.index ].build = set.build;
 }
 
 function catalog () {
@@ -38,7 +56,9 @@ function catalog () {
         name: 'Мария; 1600x2000 мм',
         discount: 20,
         poster: 'link/to/poster.jpg',
-        images: ['assets/img/item-101.jpg', 'assets/img/item-102.jpg'],
+        images: ['img/item-101.jpg', 'img/item-102.jpg'],
+        specsKeys: [['color', 'Цвет']],
+        specsVals: [['кофе с молоком', 'морковка', 'помидорка']],
         prices: {
             current: 4000,
             old: 4800,

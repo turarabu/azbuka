@@ -50,9 +50,6 @@
 .icon-lounge:before {
   content: "\64";
 }
-.icon-kitchen:before {
-  content: "\65";
-}
 .icon-bed:before {
   content: "\66";
 }
@@ -65,7 +62,7 @@
 .icon-caramel:before {
   content: "\69";
 }
-.icon-shkafmal:before {
+.icon-cupboard:before {
   content: "\6a";
 }
 .icon-commode:before {
@@ -73,4 +70,16 @@
 }
 .icon-tea-set:before {
   content: "\6c";
+}
+.icon-filter:before {
+  content: "\6d";
+}
+.icon-kitchen:before {
+  content: "\65";
+}
+.icon-search:before {
+  content: "\6e";
+}
+.icon-piggy-bank:before {
+  content: "\6f";
 }

@@ -46,6 +46,7 @@ function change (event, index) {
             border-radius 50%
             display flex
             justify-content center
+            padding 2px
             height 18px
             width 18px
             &:after
@@ -54,7 +55,7 @@ function change (event, index) {
                 content ''
                 display block
                 opacity 0
-                margin-left 1px
+                // margin-left 1px
                 height 2px
                 width 2px
                 transition .3s step-end all, .3s opacity
@@ -74,6 +75,6 @@ function change (event, index) {
                 &:after
                     opacity 1
                     transition .3s all
-                    height 14px
-                    width 14px
+                    height 100%
+                    width 100%
 </style>

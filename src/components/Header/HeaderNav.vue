@@ -31,7 +31,7 @@ div#nav
             span Домашний офис
 
         router-link( class='link' to='/catalog/hallways' )
-            i( class='icon icon-shkafmal' )
+            i( class='icon icon-caramel' )
             span Прихожие
 
         router-link( class='link' to='/catalog/commodes' )

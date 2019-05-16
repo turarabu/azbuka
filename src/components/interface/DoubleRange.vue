@@ -22,7 +22,7 @@
 <script>
 import { release } from 'os';
 export default {
-    props: [ 'min', 'max', 'change' ],
+    props: [ 'min', 'max', 'change', 'name' ],
     mounted: init,
     methods: { checkout, rerange, update },
     data: function () {
@@ -129,8 +129,12 @@ function percent (mouse) {
 
 function update () {
     return this.$emit('changed', {
-        min: this.value.min,
-        max: this.value.max
+        type: 'range',
+        name: this.name,
+        value: {
+            min: this.value.min,
+            max: this.value.max
+        }
     });
 }
 </script>

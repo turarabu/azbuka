@@ -7,7 +7,7 @@ div( class='filter' )
             span Цена
             span( class='help' ) (руб)
 
-        DoubleRange( min=0 max=10000 @changed='check' )
+        DoubleRange( min=0 max=10000 name='prices.current' @changed='changed' )
 
     div( class='section' :class='{active: sections[1] === true}' )
         h3( class='title' @click='toggle(1)' )
@@ -58,7 +58,7 @@ import Options from '@/components/interface/Options.vue'
 
 export default {
     components: { DoubleRange, Options },
-    methods: { toggle, check },
+    methods: { toggle, changed },
     data: function () {
         return {
             sections: [true, true, true, false, false, false, false],
@@ -77,10 +77,11 @@ function toggle (index) {
     return this.$forceUpdate();
 }
 
-function check (data) {
+function changed (data) {
     this.$store.commit('catalog-filter', {
-        key: 'price',
-        value: data
+        key: data.name,
+        type: data.type,
+        value: data.value
     });
 }
 </script>
@@ -89,13 +90,20 @@ function check (data) {
 <style lang="stylus">
 @import '~@/style/palette'
 
+#catalog.small .filter
+    right 0
+    opacity 1
+
 .filter
     box-shadow 0 -20px 20px darken($white-gray, 20)
     padding-top 45px
-    position relative
-    top -60px
-    overflow auto
     justify-self self-end
+    transition 0.15s all, step-end right
+    position absolute
+    top -60px
+    right -25%
+    opacity 0
+    overflow auto
     width 25%
 
     .section

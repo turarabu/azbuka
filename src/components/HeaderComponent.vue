@@ -8,9 +8,10 @@ header#header
         span( class='header-text' ) Больше выбора | 
             span( class='bold' ) Только выгода
 
-        div( class='cart-container' )
+        router-link( class='cart-container' to='/cart/items' tag='div' )
             span( class='cart-text' ) Корзина
             span( class='cart-button' )
+                span( class='items-count' ) {{ cart.length }}
                 i( class='icon icon-cart' )
 
     HeaderNav
@@ -22,7 +23,12 @@ import HeaderNav from '@/components/Header/HeaderNav.vue'
 import SiteNav from '@/components/Header/SiteNav.vue'
 
 export default {
-    components: { HeaderNav, SiteNav }
+    components: { HeaderNav, SiteNav },
+    computed: { cart }
+}
+
+function cart () {
+    return this.$store.state.cart
 }
 </script>
 
@@ -63,8 +69,23 @@ export default {
             background $cart-button-background
             display flex
             justify-content center
+            position relative
             height 120px
             width 120px
+
+            .items-count
+                align-items center
+                background $red
+                border-radius 50%
+                color $white
+                display flex
+                font-size 18px
+                justify-content center
+                position absolute
+                top 16px
+                right 16px
+                height 38px
+                width 38px
 
             .icon
                 color $white

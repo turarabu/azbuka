@@ -25,9 +25,9 @@ div( class='content buy' )
 
             div( class='total-container' )
                 i( class='total-icon fas fa-map-marker-alt' )
-                select( class='total-select select-icon' )
-                    option( value='oktober' ) ТЦ Октябрь
-                    option( value='north' ) ТЦ Северная
+                select( class='total-select select-icon' v-model='shop' )
+                    option( value='0' ) ТЦ Октябрь
+                    option( value='1' ) ТЦ Северная
 
         div( class='left inline' )
             span( class='text' ) Количество
@@ -44,12 +44,12 @@ div( class='content buy' )
     div( class='section' )
         h3( class='title' ) Выберите цвет:
 
-        select( class='select select-icon' )
-            option( value='blue' ) кофе с молоком
-            option( value='red' ) морковка
-            option( value='green' ) помидор
+        select( class='select select-icon' v-model='specs.color' )
+            option( value='0' ) кофе с молоком
+            option( value='1' ) морковка
+            option( value='2' ) помидор
 
-        button( class='button' )
+        button( class='button' @click='buy' )
             i( class='icon icon-cart' )
             span Купить
 
@@ -58,11 +58,26 @@ div( class='content buy' )
 <script>
 export default {
     props: [ 'item' ],
+    methods: { buy },
     data: function () {
         return {
-            count: 1
+            shop: 0,
+            count: 1,
+            specs: {
+                color: 0
+            }
         };
     }
+}
+
+function buy () {
+    // console.log(item)
+    this.$store.commit('add-item', {
+        id: this.item.id,
+        shop: this.shop,
+        count: this.count,
+        specs: this.specs
+    });
 }
 </script>
 
