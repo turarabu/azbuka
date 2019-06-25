@@ -3,22 +3,64 @@
 router-link( class='item' :to='`/item/${ item.id }`' tag='div' )
     img( class='poster' src='~@/assets/img/item-101.jpg' )
     p( class='name' ) {{ item.name }}
-    p( class='price-text' ) {{ item.prices.old ? 'Старая цена / Цена' : 'Цена' }}
+    p( class='price-text' ) {{ price.old > 0 ? 'Старая цена / Цена' : 'Цена' }}
 
     div( class='controls' )
-        span( class='old price' v-if='item.prices.old' ) {{ item.prices.old }}
-            span( class='new-price' ) {{ item.prices.current }}
-        span( class='price' v-else ) {{ item.prices.current }}
+        span( class='old price' v-if='price.old > 0' ) {{ price.current }}
+            span( class='new-price' ) {{ parseInt(price.current / 100 * (100 - price.old)) }}
+        span( class='price' v-else ) {{ price.current }}
 
         button( class='add' )
             i( class='icon icon-cart' )
 
 </template>
 
-
 <script>
 export default {
-    props: [ 'item' ]
+    props: [ 'item' ],
+    methods: { getPrice },
+    data: function () {
+        console.log(this.getPrice(this.item))
+        return {
+            price: this.getPrice(this.item)
+        }
+    }
+}
+
+function getPrice (item) {
+    var prices = {
+        old: 0,
+        current: 0
+    }
+
+    item.specs.forEach(spec => {
+        spec.options.forEach(option => {
+            if ( prices.current === 0 )
+                prices = setPrices(option.prices)
+
+            else if (prices.current > option.prices.current)
+                prices = setPrices(option.prices)
+
+        })
+    })
+
+    return prices
+}
+
+function setPrices (prices) {
+    var discs = prices.discounts
+    var current = prices.current
+    var old = prices.discounts.length > 0
+        ? Math.max(...getDiscs(prices.discounts)) : 0
+
+    return {old, current, discs}
+}
+
+function getDiscs (discs) {
+    var result = []
+
+    discs.forEach(disc => result.push( disc.discount ))
+    return result
 }
 </script>
 

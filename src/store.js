@@ -3,6 +3,17 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+var ajax = new XMLHttpRequest()
+var catalogData = {data: []}
+
+ajax.open('GET', 'http://95.167.9.22:8081/item/list?parentId=00000000012', false)
+ajax.send(null)
+
+if(ajax.status == 200)
+    catalogData = JSON.parse(ajax.response)
+
+console.log('Catalog Data', catalogData.data)
+
 export default new Vuex.Store({
     getters: { catalog, discounts },
     mutations: {
@@ -51,25 +62,7 @@ function setBuild (state, set) {
 }
 
 function catalog () {
-    var result = [];
-    var item = {
-        name: 'Мария; 1600x2000 мм',
-        discount: 20,
-        poster: 'link/to/poster.jpg',
-        images: ['img/item-101.jpg', 'img/item-102.jpg'],
-        specsKeys: [['color', 'Цвет']],
-        specsVals: [['кофе с молоком', 'морковка', 'помидорка']],
-        prices: {
-            current: 4000,
-            old: 4800,
-            append: '.-'
-        }
-    };
-
-    for(let i = 0; i != 32; ++i)
-        result.push(Object.assign({id: i}, item));
-
-    return result;
+    return catalogData.data
 }
 
 function discounts () {
