@@ -1,7 +1,7 @@
 <template lang="pug">
 
 router-link( class='item' :to='`/item/${ item.id }`' tag='div' )
-    img( class='poster' src='~@/assets/img/item-101.jpg' )
+    img( class='poster' :src='`/images/${item.headImage}.jpg`' )
     p( class='name' ) {{ item.name }}
     p( class='price-text' ) {{ price.old > 0 ? 'Старая цена / Цена' : 'Цена' }}
 
