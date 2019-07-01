@@ -6,7 +6,11 @@ div( class='slider' )
             i( class='fas fa-angle-left' )
             //- i( class='icon icon-arrow-left' )
 
-        img( class='img' :src=' list[ current ] ' )
+        div( class='main-image' )
+            img(
+                class='img'
+                @click='$store.commit("slider", item.images)'
+                :src='`http://95.167.9.22:81/images/${list[ current ]}.jpg`' )
 
         span( class='slider-button right' @click='current = (current + 1 < list.length) ? ++current : 0' )
             i( class='fas fa-angle-right' )
@@ -14,8 +18,9 @@ div( class='slider' )
 
 
     div( class='list' )
-        img( class='img' src='~@/assets/img/item-101.jpg' )
-        img( class='img' src='~@/assets/img/item-102.jpg' )
+        img( class='img' v-for='(img, index) in list'
+            @click='current = index'
+            :src='`http://95.167.9.22:81/images/${img}.jpg`' )
 
 </template>
 
@@ -26,10 +31,7 @@ export default {
     data: function () {
         return {
             current: 0,
-            list: [
-                '/img/item-101.jpg',
-                '/img/item-102.jpg'
-            ]
+            list: this.item.images
         };
     }
 }
@@ -49,8 +51,16 @@ export default {
         justify-content space-between
         position relative
 
+        .main-image
+            align-items center
+            display flex
+            justify-content center
+            height 520px
+            width 100%
+
         .img
-            max-width calc(100% - 120px)
+            max-height 100%
+            max-width calc(100% - 32px)
 
         .slider-button
             align-items center

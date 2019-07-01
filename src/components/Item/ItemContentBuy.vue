@@ -3,17 +3,17 @@
 div( class='content buy' )
     div( class='section' )
         h3( class='title' ) Товар:
-            span( class='line' )  Кровать с подъемным механизмом
+            span( class='line' )  {{ item.name }}
             span( class='line' )  Машенька 140x200 см
 
-    span( class='meta' ) Артикул: 1889067
+    span( class='meta' ) Артикул: {{ item.id }}
 
     div( class='section' )
         h3( class='title' ) Цена / Цена со скидкой:
 
-        span( class='old price' v-if='item.prices.old' ) {{ item.prices.old + item.prices.append }}
-            span( class='new-price' ) {{ item.prices.current + item.prices.append }}
-        span( class='price' v-else ) {{ item.prices.current + item.prices.append }}
+        span( class='old price' v-if='price.old > 0' ) {{ price.current }}
+            span( class='new-price' ) {{ parseInt(price.current / 100 * (100 - price.old)) }}
+        span( class='price' v-else ) {{ price.current }}
 
     div( class='section' )
         h3( class='title' ) Остатки:
@@ -41,13 +41,11 @@ div( class='content buy' )
             span( class='count' ) {{ count }}
             span( class='count-change add' @click='++count' )
 
-    div( class='section' )
-        h3( class='title' ) Выберите цвет:
+    div( class='section' v-for='spec in item.specs' )
+        h3( class='title' ) {{ spec.name }}:
 
-        select( class='select select-icon' v-model='specs.color' )
-            option( value='0' ) кофе с молоком
-            option( value='1' ) морковка
-            option( value='2' ) помидор
+        select( class='select select-icon' v-model='spec.id' )
+            option( v-for='option in spec.options' :value='option.id' selected ) {{ option.name }}
 
         button( class='button' @click='buy' )
             i( class='icon icon-cart' )
@@ -58,9 +56,11 @@ div( class='content buy' )
 <script>
 export default {
     props: [ 'item' ],
-    methods: { buy },
+    methods: { buy, getPrice },
     data: function () {
+        console.log(this.item)
         return {
+            price: this.getPrice(this.item),
             shop: 0,
             count: 1,
             specs: {
@@ -78,6 +78,42 @@ function buy () {
         count: this.count,
         specs: this.specs
     });
+}
+
+function getPrice (item) {
+    var prices = {
+        old: 0,
+        current: 0
+    }
+
+    item.specs.forEach(spec => {
+        spec.options.forEach(option => {
+            if ( prices.current === 0 )
+                prices = setPrices(option.prices)
+
+            else if (prices.current > option.prices.current)
+                prices = setPrices(option.prices)
+
+        })
+    })
+
+    return prices
+}
+
+function setPrices (prices) {
+    var discs = prices.discounts
+    var current = prices.current
+    var old = prices.discounts.length > 0
+        ? Math.max(...getDiscs(prices.discounts)) : 0
+
+    return {old, current, discs}
+}
+
+function getDiscs (discs) {
+    var result = []
+
+    discs.forEach(disc => result.push( disc.discount ))
+    return result
 }
 </script>
 

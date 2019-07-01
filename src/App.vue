@@ -2,6 +2,7 @@
 
 div#app
     HeaderComponent
+    FullSlider
     div#view
         router-view
 
@@ -16,10 +17,11 @@ div#app
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import FullSlider from '@/components/FullSlider.vue'
 
 export default {
     mounted: init,
-    components: { HeaderComponent },
+    components: { HeaderComponent, FullSlider },
     methods: { confirm },
     data: function () {
         return {

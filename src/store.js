@@ -23,13 +23,15 @@ export default new Vuex.Store({
         'add-item': addItem,
         'remove-item': removeItem,
         'add-count': addCount,
+        'slider': slider,
         'set-build': setBuild
     },
 
     state: {
         small: false,
         filter: {},
-        cart: []
+        cart: [],
+        slider: false
     }
 });
 
@@ -55,6 +57,10 @@ function removeItem (state, index) {
 
 function addCount (state, set) {
     state.cart[ set.index ].count = Math.max(1, state.cart[ set.index ].count + set.count);
+}
+
+function slider (state, set) {
+    state.slider = set
 }
 
 function setBuild (state, set) {

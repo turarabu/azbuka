@@ -3,49 +3,20 @@
 div( class='content specs' )
     div( class='section' )
         h3( class='title' ) Характеристики:
-        p( class='text' ) Производство: г.Калининград
-        p( class='text' ) Унифарм Медия
+        p( class='text' ) Производство: {{ item.manufacturer }}
 
-    div( class='section' )
-        p( class='dotlet' )
-            span( class='key' ) Длина
-            span( class='value' ) 150
-
-        p( class='dotlet' )
-            span( class='key' ) Ширина
-            span( class='value' ) 100
-
-        p( class='dotlet' )
-            span( class='key' ) Высота
-            span( class='value' ) 300
-
-        p( class='dotlet' )
-            span( class='key' ) Глубина
-            span( class='value' ) 800
-
-    div( class='section' )
-        h3( class='title' ) Лестница:
-
-        p( class='dotlet' )
-            span( class='key' ) Наличие лестницы
-            span( class='value' ) Нет
-
-    div( class='section' )
-        h3( class='title' ) Материал:
-
-        p( class='dotlet' )
-            span( class='key' ) Материал каркаса
-            span( class='value' ) Кофе с молоком
-
-        p( class='dotlet' )
-            span( class='key' ) Материал матраса
-            span( class='value' ) Кофе с молоком
+    div( class='section' v-for='prop in item.properties' )
+        h3( class='title' ) {{ prop.name ? `${prop.name}:` : '' }}
+        div( v-if='prop.childs.length > 0' )
+            p( class='dotlet' v-for='child in prop.childs' )
+                span( class='key' ) {{ child.name }}
+                span( class='value' ) {{ child.value }}
 
 </template>
 
 <script>
 export default {
-    
+    props: ['item']
 }
 </script>
 
