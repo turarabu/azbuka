@@ -1,14 +1,16 @@
 <template lang="pug">
 
 router-link( class='item' :to='`/item/${ item.id }`' tag='div' )
-    img( class='poster' :src='`http://95.167.9.22:81/images/${item.headImage}.jpg`' )
+    div( class='image-container' )
+        img( class='poster' :src='`http://95.167.9.22:81/images/${item.headImage}.jpg`' )
+
     p( class='name' ) {{ item.name }}
     p( class='price-text' ) {{ price.old > 0 ? 'Старая цена / Цена' : 'Цена' }}
 
     div( class='controls' )
-        span( class='old price' v-if='price.old > 0' ) {{ price.current }}
-            span( class='new-price' ) {{ parseInt(price.current / 100 * (100 - price.old)) }}
-        span( class='price' v-else ) {{ price.current }}
+        span( class='old price' v-if='price.old > 0' ) {{ price.current }} руб
+            span( class='new-price' ) {{ parseInt(price.current / 100 * (100 - price.old)) }} руб
+        span( class='price' v-else ) {{ price.current }} руб
 
         button( class='add' )
             i( class='icon icon-cart' )
@@ -76,17 +78,27 @@ function getDiscs (discs) {
     padding 8px 8px 12px 8px
     position relative
 
+    .image-container
+        align-items center
+        display flex
+        justify-content center
+        padding 8px
+        height 16vw
+
     .poster
-        width 100%
+        max-height 100%
+        max-width 100%
 
     .name
         font-weight 600
-        margin-top 20px
+        height 46px
+        margin 20px 8px 0 8px
 
     .price-text
         color #777
         font-size 14px
         font-weight 600
+        margin 16px 0 -12px 8px
 
     .controls
         align-items center
@@ -101,6 +113,7 @@ function getDiscs (discs) {
         display inline-block
         font-size 18px
         font-weight 600
+        margin-left 6px
         overflow hidden
         padding 6px 16px
         &.old
